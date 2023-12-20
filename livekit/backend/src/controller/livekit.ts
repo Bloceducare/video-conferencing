@@ -21,7 +21,7 @@ export const getLiveKitAccessToken = async (req: Request, res: Response) => {
     //   });
     // }
 
-    const token = LivekitService.getLivekitAccessToken({
+    const token = await LivekitService.getLivekitAccessToken({
       roomName,
       userId, // use nickname here. Nickname should be unique.
     });

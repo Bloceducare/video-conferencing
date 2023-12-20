@@ -23,3 +23,7 @@ _Husky would be fired on commit_
 - Run `yarn dev`
 
 PS: Check the /livekit/backend/TODO.md file for undone tasks.
+
+To call the endpoints successfully, you need to run livekit locally.
+
+[How to run livekit locally. Click to go to doc](https://docs.livekit.io/realtime/self-hosting/local/)
