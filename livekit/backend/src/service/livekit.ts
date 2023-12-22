@@ -35,6 +35,21 @@ class LivekitService {
       );
     }
   }
+
+  async listRooms(names?: string[]) {
+    try {
+      const rooms = await roomService()?.listRooms(names);
+      return rooms;
+    } catch (error) {
+      console.log(error, 'list room error');
+      throw new ApiError(
+        'impact api',
+        error as string,
+        'listRooms',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 export default new LivekitService();
