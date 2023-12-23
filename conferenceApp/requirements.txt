@@ -9,5 +9,6 @@ packaging
 psycopg2-binary
 python-decouple
 social-auth-app-django
-
-
+djangorestframework_simplejwt
+drf-spectacular
+gunicorn
