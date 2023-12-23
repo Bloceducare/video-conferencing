@@ -12,4 +12,4 @@ social-auth-app-django
 djangorestframework_simplejwt
 drf-spectacular
 gunicorn
-allauth
+django-allauth
