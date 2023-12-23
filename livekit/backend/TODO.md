@@ -1,15 +1,6 @@
-1. Create a service to save rooms created.
-2. Check that roomName exists before token is generated
-3. Check that user exists before token is generated
-4. List rooms
+1. Create a service to save rooms created. (SKIP)
 
-```javascript
-roomService.listRooms().then((rooms: Room[]) => {
-  console.log('existing rooms', rooms);
-});
-```
-
-5. Delete a room
+2. Delete a room
 Deleting a room causes all Participants to be disconnected.
 
 
@@ -20,19 +11,19 @@ roomService.deleteRoom('myroom').then(() => {
 });
 ```
 
-6. List Participants
+3. List Participants
 
 ```javascript
 const res = await roomService.listParticipants(roomName);
 ```
 
-7. Get details on a Participant
+4. Get details on a Participant
 
 ```javascript
 const res = await roomService.getParticipant(roomName, identity);
 ```
 
-8. Updating permissions
+5. Updating permissions
 You can modify a participant's permissions on-the-fly using UpdateParticipant. When there's a change in permissions, connected clients will be notified through the ParticipantPermissionChanged event.
 
 This comes in handy, for instance, when transitioning an audience member to a speaker role within a room.
@@ -57,7 +48,7 @@ await roomService.updateParticipant(roomName, identity, undefined, {
 })
 ```
 
-9. Updating metadata
+6. Updating metadata
 You can modify a Participant's metadata whenever necessary. Once changed, connected clients will receive a ParticipantMetadataChanged event.
 
 
@@ -69,7 +60,7 @@ const data = javascriptON.stringify({
 await roomService.updateParticipant(roomName, identity, data)
 ```
 
-10. Remove a Participant
+7. Remove a Participant
 RemoteParticipant will forcibly disconnect the participant from the room. However, this action doesn't invalidate the participant's token.
 
 To prevent the participant from rejoining the same room, consider the following measures:
@@ -84,7 +75,7 @@ await roomService.removeParticipant({
 });
 ```
 
-11. Mute/unmute a Participant's Track
+8. Mute/unmute a Participant's Track
 To mute a particular Track from a Participant, first get the TrackSid from GetParticipant (above), then call MutePublishedTrack:
 
 
