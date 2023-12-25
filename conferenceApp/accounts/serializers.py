@@ -18,7 +18,7 @@ class SigninSerializer(serializers.Serializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = ['password', 'user_permissions']
 
 class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()

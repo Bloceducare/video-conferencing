@@ -9,10 +9,11 @@ from rest_framework import permissions
 from django.conf.urls.static import static
 from allauth.account.views import LoginView
 from rest_framework_simplejwt import views as jwt_views 
+from accounts.views import home
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Your API",
+        title="Web3bridge Auth",
         default_version="v1",
         description="authentication api for web3bridge",
     ),
@@ -23,6 +24,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("admin/", admin.site.urls),
+    path("", home, name="home"),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("allauth.urls")),
     path("api/token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),

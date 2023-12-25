@@ -1,4 +1,5 @@
-# accounts/views.py
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
@@ -20,7 +21,7 @@ from .serializers import SignupSerializer, SigninSerializer, UserProfileSerializ
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def home(request):
     user = request.user
 
@@ -70,23 +71,28 @@ class SignupView(generics.CreateAPIView):
             return response
 
 
-
-class SigninView(CreateAPIView):
+class SigninView(APIView):
     """Login a user with username and password"""
-    serializer_class = SigninSerializer  
+    serializer_class = SigninSerializer
 
-    def create(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        password = request.data.get('password')
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        username = serializer.validated_data['username']
+        password = serializer.validated_data['password']
 
         # Authenticate using username and password
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            token, created = Token.objects.get_or_create(user=user)
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+
             return Response({
-                'token': token.key,
+                'access_token': access_token,
                 'user': {
                     'id': user.id,
                     'username': user.username,
