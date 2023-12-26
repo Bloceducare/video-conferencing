@@ -13,7 +13,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'createUser',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -28,7 +28,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'getUserById',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -43,7 +43,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'getUserByEmail',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -58,7 +58,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'getUserByUsername',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -76,7 +76,7 @@ class UserService {
     } catch (error) {
       console.log(error, 'from update user');
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'updateUser',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -91,7 +91,7 @@ class UserService {
       return user;
     } catch (error) {
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'deleteUser',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -112,7 +112,7 @@ class UserService {
       return users;
     } catch (error) {
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'getAllUsers',
         StatusCode.INTERNAL_SERVER_ERROR
@@ -127,7 +127,7 @@ class UserService {
       return count;
     } catch (error) {
       throw new ApiError(
-        'impact api',
+        'livekit api',
         error as string,
         'getAllUsers',
         StatusCode.INTERNAL_SERVER_ERROR

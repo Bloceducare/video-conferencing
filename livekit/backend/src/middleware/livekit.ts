@@ -26,6 +26,18 @@ const LivekitMiddleware = {
       });
     }
   },
+  async inspectUpdateParticipant(req: Request, res: Response, next: NextFunction) {
+    try {
+      await livekitValidations.validateUpdateParticipant(req.body);
+      next();
+    } catch (error: any) {
+      console.log(error, 'validation error');
+      return res.status(error.statusCode || StatusCode.BAD_REQUEST).json({
+        status: !!ResponseCode.FAILURE,
+        message: error,
+      });
+    }
+  },
 };
 
 export default LivekitMiddleware;

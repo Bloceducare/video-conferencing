@@ -20,6 +20,22 @@ const livekit = {
     if (error) throw error.details[0].context.label;
     return true;
   },
+
+  async validateUpdateParticipant(payload: any) {
+    const schema = joi.object({
+      metadata: joi.string().optional().label('invalid metadata. it should be a json string.'),
+      permissions: joi
+        .object({
+          canPublish: joi.boolean().label('entry for canPublish is invalid'),
+          canSubscribe: joi.boolean().label('entry for canSubscribe is invalid'),
+          canPublishData: joi.boolean().label('entry for canPublishData is invalid'),
+        })
+        .optional(),
+    });
+    const { error } = schema.validate(payload);
+    if (error) throw error.details[0].context.label;
+    return true;
+  },
 };
 
 export default livekit;
