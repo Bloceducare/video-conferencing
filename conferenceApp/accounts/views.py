@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
-from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
@@ -25,10 +24,7 @@ from .serializers import SignupSerializer, SigninSerializer, UserProfileSerializ
 def home(request):
     user = request.user
 
-    # Check if the user has a social account
-    social_account = SocialAccount.objects.filter(user=user).first()
-
-    if social_account:
+    if user:
         login(request, user)
 
         # Generate or retrieve the refresh token
@@ -40,21 +36,11 @@ def home(request):
             "username": user.username,
             "email": user.email,
             "access_token": access_token,
-            # Add more user details as needed
+            
         })
 
     else:
-        # User signed in with a different method (not a social account)
-        # Generate or retrieve the refresh token
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-
-        return JsonResponse({
-            "user_id": user.id,
-            "username": user.username,
-            "email": user.email,
-            "access_token": access_token,
-        })
+        return Response({'error': 'user not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
     
 class SignupView(generics.CreateAPIView):
     """Register user with email and password"""
@@ -155,7 +141,7 @@ class ResetPasswordView(generics.CreateAPIView):
             return Response({'error': 'User with this email does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
 class CompletePasswordResetView(generics.CreateAPIView):
-    """Complete the password reset process"""
+    """Complete the password reset process by posting the uid, token and new password"""
     serializer_class = CompletePasswordResetSerializer
     def create(self, request, *args, **kwargs):
         uid = request.data.get('uid')
@@ -172,8 +158,6 @@ class CompletePasswordResetView(generics.CreateAPIView):
                 user.set_password(new_password)
                 user.save()
                 return Response({'message': 'Password reset successful.'}, status=status.HTTP_200_OK)
-            else:
-                return Response({'error': 'Passwords do not match.'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'Invalid reset link.'}, status=status.HTTP_400_BAD_REQUEST)
 
