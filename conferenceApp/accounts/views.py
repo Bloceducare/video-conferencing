@@ -25,7 +25,7 @@ def home(request):
     user = request.user
 
     if user:
-        login(request, user)
+        login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
 
         # Generate or retrieve the refresh token
         refresh = RefreshToken.for_user(user)
