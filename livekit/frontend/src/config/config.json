@@ -1,0 +1,33 @@
+{
+  "site": {
+    "title": "Web3bridgeMeet",
+    "base_url": "https://www.web3bridge.com",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/favicon.ico",
+    "logo": "/livekit/frontend/public/Web3bridgeMeet.svg",
+    "logo_darkmode": "/livekit/frontend/public/Web3bridgeMeet.svg",
+    "logo_width": "150",
+    "logo_height": "27",
+    "logo_text": "web3bridge"
+  },
+
+  "settings": {
+    "search": true,
+    "sticky_header": true,
+    "theme_switcher": true,
+    "default_theme": "system"
+  },
+
+  "navigation_button": {
+    "enable": false,
+    "label": "Get Started",
+    "link": "#"
+  },
+
+  "metadata": {
+    "meta_author": "Web3Bridge",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Web3Bridge"
+  }
+}
