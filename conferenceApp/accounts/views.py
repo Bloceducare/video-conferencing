@@ -162,6 +162,11 @@ class CompletePasswordResetView(generics.CreateAPIView):
             return Response({'error': 'Invalid reset link.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class VerifyUser(generics.RetrieveAPIView):
+    def get(self, request, *args, **kwargs):
+        pass
+
+
 
 # class GitHubSocialAuth(APIView):
 #     def get(self, request, code=None):
