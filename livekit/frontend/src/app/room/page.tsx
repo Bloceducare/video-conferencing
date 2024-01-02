@@ -1,5 +1,5 @@
 'use client';
-import { formatChatMessageLinks, LiveKitRoom, VideoConference } from '@livekit/components-react';
+import {FocusLayout, formatChatMessageLinks, LiveKitRoom, VideoConference, VideoTrack} from '@livekit/components-react';
 import {
   ExternalE2EEKeyProvider,
   LogLevel,
@@ -13,6 +13,7 @@ import PageHeader from '@/layouts/partials/PageHeader';
 import { useMemo } from 'react';
 import { DebugMode } from '@/lib/Debug';
 import { decodePassphrase } from '@/lib/client-utils';
+import CustomVideoConference from "@/components/CustomLiveKitComponents/CustomVideoConference";
 
 const Preview = () => {
   const e2eePassphrase =
@@ -55,8 +56,8 @@ const Preview = () => {
   }, []);
   return (
     <>
-      <PageHeader />
-      <section data-lk-theme="default">
+      {/*<PageHeader />*/}
+      <section data-lk-theme="default" className='w-[80vw] mx-auto h-auto' >
         <LiveKitRoom
           room={room}
           token={
@@ -67,7 +68,11 @@ const Preview = () => {
           audio={true}
           video={true}
         >
-          <VideoConference chatMessageFormatter={formatChatMessageLinks} />
+          {/*<VideoConference chatMessageFormatter={formatChatMessageLinks} />*/}
+
+          <CustomVideoConference chatMessageFormatter={formatChatMessageLinks} />
+
+
           <DebugMode logLevel={LogLevel.info} />
         </LiveKitRoom>
       </section>

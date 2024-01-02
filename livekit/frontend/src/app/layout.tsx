@@ -1,5 +1,5 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import { usePathname } from 'next/navigation';
 import routes from "@/layouts/helpers/routes";
 import Navbar from '@/layouts/components/Navbar';
@@ -23,16 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
-  // set viewNav to be true if path is /dashboard
   const pathname = usePathname();
-  const [viewNav, setViewNav] = useState(pathname === '/dashboard');
   // import google font css
   const pf = theme.fonts.font_family.primary;
   const sf = theme.fonts.font_family.secondary;
 
-  useEffect(() => {
-    setViewNav(pathname === '/dashboard');
-  }, [pathname]);
 
   return (
     <html suppressHydrationWarning={true} lang="en">
@@ -76,15 +71,16 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
-          {!viewNav ? <Header />
-              :
-            <Navbar
-              onOpenSidenav={() => setOpen(!open)}
-              brandText={getActiveRoute(routes, pathname)}
-              secondary={getActiveNavbar(routes, pathname)}
-            />}
+
+            {
+                pathname === '/dashboard' ? <Navbar
+                    onOpenSidenav={() => setOpen(!open)}
+                    brandText={getActiveRoute(routes, pathname)}
+                    secondary={getActiveNavbar(routes, pathname)}
+                /> : pathname.startsWith('/room')? null : <Header />
+            }
           <main>{children}</main>
-          {!viewNav && <Footer />}
+            {pathname !== '/dashboard' || !pathname.startsWith('/room') && <Footer />}
         </Providers>
       </body>
     </html>
