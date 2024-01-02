@@ -3,6 +3,7 @@ import ImageFallback from '@/layouts/helpers/ImageFallback';
 import { getListPage } from '@/lib/contentParser';
 import { Button } from '@/types';
 import HomepageButton from '@/helpers/HomepageButton';
+import HomepageImg from 'public/unsplash_4xe-yVFJCvw.png';
 
 const Home = () => {
   const homepage = getListPage('_index.md');
@@ -20,7 +21,7 @@ const Home = () => {
   } = frontmatter;
   return (
     <>
-      <section className="section pt-14">
+      <section className="section pt-0">
         <div className="container">
           <div className="flex flex-wrap items-center justify-between">
             {/* Content */}
@@ -34,12 +35,12 @@ const Home = () => {
 
             {/* Image */}
             {banner.image && (
-              <div className="w-full lg:w-1/2 h-2/3">
+              <div className="w-full lg:w-1/2 h-1/3">
                 <ImageFallback
-                  src={banner.image}
+                  src={HomepageImg}
                   className="mx-auto "
                   width="400"
-                  height="90"
+                  height="80"
                   alt="banner image"
                   priority
                 />

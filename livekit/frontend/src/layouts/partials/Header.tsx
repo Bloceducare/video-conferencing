@@ -1,6 +1,7 @@
 'use client';
 
 import Logo from '@/layouts/components/Logo';
+import web3Logo from 'public/Web3bridgeMeet.svg';
 import ThemeSwitcher from '@/layouts/components/ThemeSwitcher';
 import config from '@/config/config.json';
 import menu from '@/config/menu.json';
@@ -43,7 +44,7 @@ const Header = () => {
       <nav className="navbar container">
         {/* logo */}
         <div className="order-0">
-          <p>Web3Bridge Meet</p>
+          <img src={web3Logo} />
           {/* <Logo /> */}
         </div>
         {/* /navbar toggler */}

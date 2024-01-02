@@ -22,14 +22,14 @@ const HomepageButton = () => {
       <span className="flex justify-center gap-1">
         {' '}
         {banner.button_white?.enable && (
-          <button className="btn btn-outline">
+          <button className="btn text-white hover:text-black bg-black  hover:bg-white border-solid border-white ">
             <Link legacyBehavior href={banner.button_white.link}>
               {banner.button_white.label}
             </Link>
           </button>
         )}
         {banner.button_black?.enable && (
-          <button className="btn btn-outline">
+          <button className="btn text-black hover:text-white bg-white  hover:bg-black border-solid border-black hover:border-white ">
             <Link legacyBehavior href={banner.button_black.link}>
               {banner.button_black.label}
             </Link>
