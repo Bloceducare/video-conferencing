@@ -1,15 +1,22 @@
-import ImageFallback from "@/layouts/helpers/ImageFallback";
-import { getListPage } from "@/lib/contentParser";
-import { Button } from "@/types";
-import Link from "next/link";
+import Link from 'next/link';
+import ImageFallback from '@/layouts/helpers/ImageFallback';
+import { getListPage } from '@/lib/contentParser';
+import { Button } from '@/types';
+import HomepageButton from '@/helpers/HomepageButton';
 
 const Home = () => {
-  const homepage = getListPage("_index.md");
+  const homepage = getListPage('_index.md');
   const { frontmatter } = homepage;
   const {
     banner,
   }: {
-    banner: { title: string; image: string; content?: string; button_black?: Button; button_white?: Button };
+    banner: {
+      title: string;
+      image: string;
+      content?: string;
+      button_black?: Button;
+      button_white?: Button;
+    };
   } = frontmatter;
   return (
     <>
@@ -21,34 +28,18 @@ const Home = () => {
               <div className="mb-16 text-center">
                 <h1 className="mb-4">{banner.title}</h1>
                 <p className="mb-8">{banner.content ?? ''}</p>
-                <span>
-                  <span>
-                    {banner.button_white?.enable && (
-                      <Link legacyBehavior href={banner.button_white.link}>
-                        <a className="btn btn-primary">{banner.button_white.label}</a>
-                      </Link>
-                    )}
-                  </span>
-                  <span></span>
-                  <span>
-                    {banner.button_black?.enable && (
-                      <Link legacyBehavior href={banner.button_black.link}>
-                        <a className="btn btn-secondary">{banner.button_black.label}</a>
-                      </Link>
-                    )}
-                  </span>
-                </span>
+                <HomepageButton />
               </div>
             </div>
 
             {/* Image */}
             {banner.image && (
-              <div className="w-full lg:w-1/2">
+              <div className="w-full lg:w-1/2 h-2/3">
                 <ImageFallback
                   src={banner.image}
-                  className="mx-auto"
-                  width="800"
-                  height="420"
+                  className="mx-auto "
+                  width="400"
+                  height="90"
                   alt="banner image"
                   priority
                 />
