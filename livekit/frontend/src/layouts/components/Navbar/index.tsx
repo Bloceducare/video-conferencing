@@ -22,7 +22,7 @@ const Navbar = (props: {
   return (
     <div className="navbar dark:bg-base-100 bg-white">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl dark:text-white ">Web3bridge Meet</a>
+        <Logo />
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end flex items-center justify-end">
