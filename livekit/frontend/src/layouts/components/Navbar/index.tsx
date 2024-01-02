@@ -90,8 +90,6 @@ const Navbar = (props: {
                       </div>
                     </div>
                   </div>
-                  {/* Sidebar content here */}
-                  {/* <ul tabIndex={0} className="menu menu-sm z-[1] p-2 shadow bg-base-100 w-52"> */}
                   <li>
                     <a className="justify-between">Profile</a>
                   </li>
@@ -102,7 +100,6 @@ const Navbar = (props: {
                     <a>Logout</a>
                   </li>
                 </ul>
-                {/* </ul> */}
               </div>
             </div>
           </div>
