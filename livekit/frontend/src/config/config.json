@@ -11,23 +11,21 @@
     "logo_height": "27",
     "logo_text": "web3bridge"
   },
-
   "settings": {
     "search": true,
     "sticky_header": true,
     "theme_switcher": true,
     "default_theme": "system"
   },
-
   "navigation_button": {
     "enable": false,
     "label": "Get Started",
     "link": "#"
   },
-
   "metadata": {
     "meta_author": "Web3Bridge",
     "meta_image": "/images/og-image.png",
     "meta_description": "Web3Bridge"
-  }
+  },
+  "base_path": ""
 }
