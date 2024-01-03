@@ -1,9 +1,9 @@
-import Students from './student';
+import Student from './student';
 
 const MeetingCards = () => {
   return (
     <>
-      <Students />
+      <Student />
     </>
   );
 };
