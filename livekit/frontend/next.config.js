@@ -1,4 +1,4 @@
-const config = require('./src/config/config.json');
+import { config } from './src/config';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

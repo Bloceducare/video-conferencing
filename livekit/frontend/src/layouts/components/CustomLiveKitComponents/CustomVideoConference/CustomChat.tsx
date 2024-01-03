@@ -91,7 +91,7 @@ export default function CustomChat({
                 <ChatEntry
                   key={idx}
                   hideName={hideName}
-                  hideTimestamp={hideName === false ? false : hideTimestamp} // If we show the name always show the timestamp as well.
+                  hideTimestamp={!hideName ? false : hideTimestamp} // If we show the name always show the timestamp as well.
                   entry={msg}
                   messageFormatter={messageFormatter}
                   className={'lk-chat-entry'}

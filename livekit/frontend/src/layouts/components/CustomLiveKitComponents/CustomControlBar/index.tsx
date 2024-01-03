@@ -15,7 +15,6 @@ import { ControlBarProps } from '@livekit/components-react';
 import { useMediaQuery } from 'usehooks-ts';
 import { mergeProps } from '../others/mergeProps';
 import { StartMediaButton } from './StartMediaButton';
-import { theme } from '@/config';
 
 /**
  * The `ControlBar` prefab gives the user the basic user interface to control their

@@ -2,13 +2,9 @@ import {
   CarouselLayout,
   ConnectionStateToast,
   FocusLayout,
-  FocusLayoutContainer,
   GridLayout,
   isTrackReference,
   LayoutContextProvider,
-  MessageDecoder,
-  MessageEncoder,
-  MessageFormatter,
   ParticipantTile,
   RoomAudioRenderer,
   TrackReferenceOrPlaceholder,
@@ -20,7 +16,7 @@ import {
 } from '@livekit/components-react';
 import { RoomEvent, Track } from 'livekit-client';
 import { isEqualTrackRef, isWeb, log } from '@livekit/components-core';
-import { HTMLAttributes, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CustomControlBar from '@/components/CustomLiveKitComponents/CustomControlBar';
 import useDynamicColor from '@/hooks/useDynamicColor';
 import CustomChat from '@/components/CustomLiveKitComponents/CustomVideoConference/CustomChat';
