@@ -1,14 +1,14 @@
-import Student from '@/components/Dashboard/Student';
+import Students from '@/components/Dashboard/Students';
 import React from 'react';
 
 type Props = {};
 
-const student = (props: Props) => {
+const Student = (props: Props) => {
   return (
     <div>
-      <Student />
+      <Students />
     </div>
   );
 };
 
-export default student;
+export default Student;
