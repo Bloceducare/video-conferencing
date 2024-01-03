@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 import config from './config.json';
 import theme from './theme.json';
 import menu from './menu.json';
