@@ -57,7 +57,7 @@ const Preview = () => {
   return (
     <>
       {/*<PageHeader />*/}
-      <section data-lk-theme="default" className='w-[80vw] mx-auto h-auto' >
+      <section className='w-screen h-screen bg-body dark:bg-darkmode-body' >
         <LiveKitRoom
           room={room}
           token={
