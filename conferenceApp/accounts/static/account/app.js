@@ -14,17 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
     signinForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const email = document.getElementById('email').value;
+        const username = document.getElementById('Username').value;
         const password = document.getElementById('password').value;
-        const rememberMe = document.querySelector('[name="remember-me"]').checked;
+        // const rememberMe = document.querySelector('[name="remember-me"]').checked;
 
         const formData = {
-            email: email,
+            username: username,
             password: password,
-            remember_me: rememberMe,
+            // remember_me: rememberMe,
         };
 
-        fetch('{% url "signin" %}', {
+        fetch('/accounts/signin/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             // Handle successful response
+            alert('login success')
+            window.location.href = ''
             console.log(data);
         })
         .catch(error => {
