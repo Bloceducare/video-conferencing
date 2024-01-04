@@ -32,14 +32,13 @@
             </div>
         </nav>
     
-    <form method="post" action="{% url 'signin' %}">
-        
+    <form method="post" id="signin-form">
+        {% csrf_token %}
         <div class="cent">
             <p>Web3bridge Meet</p>
             <p> <a href="#login">login</a></p>
         </div>
         
-        {% csrf_token %}
 
         <label for="email">Email address:</label>
         <input type="email" id="email" name="email" required>
