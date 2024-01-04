@@ -17,8 +17,8 @@
         <nav class="navbar">
             <div class="logo">Web3bridge Meet</div>
             <div class="menu">
-                <button class="button"  onclick="activateButton(this)"> <a href="signup.html">Register</a></button>
-                <button class="button" id='login' style="background: #333;" onclick="activateButton(this)"> <a href="login.html">Login</a></button>
+                <button class="button"  onclick="activateButton(this)"> <a href="{% url 'account_signup' %}">Register</a></button>
+                <button class="button" id='login' style="background: #333;" onclick="activateButton(this)"> <a href="{% url 'account_login' %}">Login</a></button>
             </div>
         
             <div class="menu-toggle" onclick="toggleMenu()">
@@ -26,21 +26,21 @@
                 
                 <div class="menu-buttons">
                     <div class="cancel-icon" id="cancelIcon" style="display:none;">&#10006;</div>
-                    <button class="button" onclick="activateButton(this)"> <a href="signup.html">Register</a></button>
-                    <button class="button" onclick="activateButton(this)"> <a href="login.html">Login</a></button>
+                    <button class="button" onclick="activateButton(this)"> <a href="{% url 'account_signup' %}">Register</a></button>
+                    <button class="button" onclick="activateButton(this)"> <a href="{% url 'account_login' %}">Login</a></button>
                 </div>
             </div>
         </nav>
     
-    <form>
+    <form method="post" action="{% url 'signin' %}">
         
         <div class="cent">
             <p>Web3bridge Meet</p>
             <p> <a href="#login">login</a></p>
         </div>
         
-        
-        
+        {% csrf_token %}
+
         <label for="email">Email address:</label>
         <input type="email" id="email" name="email" required>
     
@@ -52,17 +52,17 @@
                 <input type="checkbox" name="remember-me">
                 <span class="checkmark"></span>
             </label>
-            <a href="#forgot-password">Forgot Password?</a>
+            <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
         </div>
     
-        <button  class="reg" type="submit">Log in</button>
+        <button class="reg" type="submit">Log in</button>
         <div class="line-container">
             <hr>
             <div class="content">or log in with</div>
             <hr>
            
         </div>
-        <a href='/accounts/github/login/' class="github-button" type="submit">
+        <a href="{% url 'github_login' %}" class="github-button" type="submit">
             <img src="{% static 'account/images/githublogo.png' %}" alt="GitHub Logo">
             GitHub
         </a>
