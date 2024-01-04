@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="{% static 'account/style.css' %}">
+    <script src="{% static 'account/app.js' %}"></script>
     <title>Sign Up</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
             <div class="logo">Web3bridge Meet</div>
             <div class="menu">
                 <button class="button"  onclick="activateButton(this)"> <a href="signup.html">Register</a></button>
-                <button class="button" style="background: #333;" onclick="activateButton(this)"> <a href="login.html">Login</a></button>
+                <button class="button" id='login' style="background: #333;" onclick="activateButton(this)"> <a href="login.html">Login</a></button>
             </div>
         
             <div class="menu-toggle" onclick="toggleMenu()">
@@ -61,10 +62,10 @@
             <hr>
            
         </div>
-        <button class="github-button" type="submit">
-            <img src="images/githublogo.png" alt="GitHub Logo">
+        <a href='/accounts/github/login/' class="github-button" type="submit">
+            <img src="{% static 'account/images/githublogo.png' %}" alt="GitHub Logo">
             GitHub
-        </button>
+        </a>
     </form>
 </div>
 <script src=""></script>
