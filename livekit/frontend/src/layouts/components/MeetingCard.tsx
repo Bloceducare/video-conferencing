@@ -1,12 +1,12 @@
-import ImageFallback from "@/layouts/helpers/ImageFallback";
-import { plainify } from "@/lib/textConverter";
-import { MeetingCardType } from "@/types";
-import Link from "next/link";
+import ImageFallback from '@/layouts/helpers/ImageFallback';
+import { plainify } from '@/lib/textConverter';
+import { MeetingCardType } from '@/types';
+import Link from 'next/link';
 
 const MeetingCard = ({ data }: { data: MeetingCardType }) => {
-  const { title, image } = data;
+  const { title, cohort, room, image } = data;
   return (
-    <div className="rounded bg-theme-light p-8 text-center dark:bg-darkmode-theme-light">
+    <div className="rounded  p-8 text-center ">
       {image && (
         <ImageFallback
           className="mx-auto mb-6 rounded"
@@ -19,7 +19,13 @@ const MeetingCard = ({ data }: { data: MeetingCardType }) => {
       <h4 className="mb-3">
         <Link href={'#'}>{title}</Link>
       </h4>
-      <p className="mb-4">{plainify(data.description)}</p>
+
+      <div className="space-y-4">
+        <p>{data.cohort}</p>
+
+        <p>{data.room}</p>
+        <p className="mb-4">{plainify(data.description)}</p>
+      </div>
     </div>
   );
 };
