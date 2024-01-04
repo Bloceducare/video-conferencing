@@ -1,5 +1,7 @@
 export type MeetingCardType = {
   title: string;
+  cohort: string;
+  room: string;
   description: string;
   image: string;
   link: string;
