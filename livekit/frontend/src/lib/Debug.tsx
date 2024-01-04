@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useRoomContext } from '@livekit/components-react';
 import { setLogLevel, LogLevel, RemoteTrackPublication } from 'livekit-client';
 import { tinykeys } from 'tinykeys';
-import styles from '@/styles/Debug.module.css';
+import styles from '@/styles/debug.module.css';
 
 export const useDebugMode = ({ logLevel }: { logLevel?: LogLevel }) => {
   setLogLevel(logLevel ?? 'debug');
