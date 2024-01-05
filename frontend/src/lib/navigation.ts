@@ -1,12 +1,9 @@
-import { IRoute } from "@/types/navigation";
+import { IRoute } from '@/types/navigation';
 
 // NextJS Requirement
-export const isWindowAvailable = () => typeof window !== "undefined";
+export const isWindowAvailable = () => typeof window !== 'undefined';
 
-export const findCurrentRoute = (
-  routes: any[],
-  pathname: string,
-): IRoute | undefined => {
+export const findCurrentRoute = (routes: any[], pathname: string): IRoute | undefined => {
   if (!isWindowAvailable()) return undefined;
 
   for (let route of routes) {
@@ -20,20 +17,14 @@ export const findCurrentRoute = (
 
 export const getActiveRoute = (routes: IRoute[], pathname: string): string => {
   const route = findCurrentRoute(routes, pathname);
-  return route?.name || "Dashboard";
+  return route?.name || 'Dashboard';
 };
 
-export const getActiveNavbar = (
-  routes: IRoute[],
-  pathname: string,
-): boolean => {
+export const getActiveNavbar = (routes: IRoute[], pathname: string): boolean => {
   const route = findCurrentRoute(routes, pathname);
   return route?.secondary || false;
 };
 
-export const getActiveNavbarText = (
-  routes: IRoute[],
-  pathname: string,
-): string | boolean => {
+export const getActiveNavbarText = (routes: IRoute[], pathname: string): string | boolean => {
   return getActiveRoute(routes, pathname) || false;
 };

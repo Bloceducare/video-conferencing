@@ -1,5 +1,16 @@
 import { Router } from 'express';
-import { getLiveKitAccessToken, createRoom, listRooms, getRoom, deleteRoom, listParticipants, getParticipant, updateParticipant, removeParticipant , muteParticipant } from '../controller';
+import {
+  getLiveKitAccessToken,
+  createRoom,
+  listRooms,
+  getRoom,
+  deleteRoom,
+  listParticipants,
+  getParticipant,
+  updateParticipant,
+  removeParticipant,
+  muteParticipant,
+} from '../controller';
 import { LivekitMiddleware } from '../middleware';
 
 const router = Router();
@@ -14,6 +25,6 @@ router.get('/participant/:roomName', listParticipants);
 router.get('/participant/:roomName/:userId', getParticipant);
 router.patch('/participant/:roomName/:userId/:trackSID/:isMute', muteParticipant);
 router.put('/participant/:roomName/:userId', inspectUpdateParticipant, updateParticipant);
-router.patch('/participant/:roomName/:userId', removeParticipant );
+router.patch('/participant/:roomName/:userId', removeParticipant);
 
 export default router;

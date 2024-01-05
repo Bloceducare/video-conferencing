@@ -13,7 +13,7 @@ const UserMiddleware = {
         message: error,
       });
     }
-  }
+  },
 };
 
 export default UserMiddleware;

@@ -7,14 +7,14 @@ export const getAccessToken = (participantName: string) => {
   return new AccessToken(LK_API_KEY, LK_API_SECRET, {
     identity: participantName,
   });
- }
+};
 
- const livekitHost = LK_HOST || 'http://localhost:7880';
+const livekitHost = LK_HOST || 'http://localhost:7880';
 
- export const roomService = () => {
+export const roomService = () => {
   try {
     return new RoomServiceClient(livekitHost, LK_API_KEY, LK_API_SECRET);
   } catch (error) {
     console.log(error, 'livekit room error');
   }
- };
+};
