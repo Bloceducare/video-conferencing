@@ -1,6 +1,7 @@
 'use client';
 
 import Logo from '@/layouts/components/Logo';
+import web3Logo from 'public/Web3bridgeMeet.svg';
 import ThemeSwitcher from '@/layouts/components/ThemeSwitcher';
 import config from '@/config/config.json';
 import menu from '@/config/menu.json';
@@ -39,19 +40,22 @@ const Header = () => {
   }, [pathname]);
 
   return (
-    <header className={`header z-30 ${settings.sticky_header && 'sticky top-0'}`}>
+    <header className={`header ${settings.sticky_header && 'sticky top-0'}`}>
       <nav className="navbar container">
         {/* logo */}
-        <div className="order-0">
-          <p>Web3Bridge Meet</p>
-          {/* <Logo /> */}
-        </div>
+
+        {/* <div className="order-0"> */}
+        <Logo />
+        {/* </div> */}
         {/* /navbar toggler */}
-        {/* <HomepageButton /> */}
+
         <div className="order-3 ml-auto flex items-center md:order-2 lg:ml-0">
           <ThemeSwitcher className="mr-5" />
+          <span className=" hidden lg:inline-block">
+            <HomepageButton />
+          </span>
 
-          <div className="drawer drawer-end lg:hidden">
+          <div className="drawer z-30 drawer-end lg:hidden">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
               {/* Page content here */}
@@ -79,11 +83,9 @@ const Header = () => {
               ></label>
               <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
                 {/* Sidebar content here */}
+
                 <li>
-                  <a>Sidebar Item 1</a>
-                </li>
-                <li>
-                  <a>Sidebar Item 2</a>
+                  <HomepageButton />
                 </li>
               </ul>
             </div>
