@@ -1,4 +1,4 @@
-const theme = require('./src/config/theme.json');
+import { theme } from './src/config';
 
 let font_base = Number(theme.fonts.font_size.base.replace('px', ''));
 let font_scale = Number(theme.fonts.font_size.scale);
@@ -50,7 +50,7 @@ module.exports = {
         light: theme.colors.default.text_color.light,
         dark: theme.colors.default.text_color.dark,
         primary: theme.colors.default.theme_color.primary,
-        secondary: theme.colors.default.theme_color.secondary,
+        // secondary: theme.colors.default.theme_color.secondary,
         body: theme.colors.default.theme_color.body,
         border: theme.colors.default.theme_color.border,
         'theme-light': theme.colors.default.theme_color.theme_light,
@@ -60,7 +60,7 @@ module.exports = {
           light: theme.colors.darkmode.text_color.light,
           dark: theme.colors.darkmode.text_color.dark,
           primary: theme.colors.darkmode.theme_color.primary,
-          secondary: theme.colors.darkmode.theme_color.secondary,
+          // secondary: theme.colors.darkmode.theme_color.secondary,
           body: theme.colors.darkmode.theme_color.body,
           border: theme.colors.darkmode.theme_color.border,
           'theme-light': theme.colors.darkmode.theme_color.theme_light,

@@ -25,7 +25,7 @@ def home(request):
     user = request.user
 
     if user:
-        login(request, user)
+        login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
 
         # Generate or retrieve the refresh token
         refresh = RefreshToken.for_user(user)
@@ -160,6 +160,37 @@ class CompletePasswordResetView(generics.CreateAPIView):
                 return Response({'message': 'Password reset successful.'}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid reset link.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def get_user_details(request):
+    user = request.user
+
+    # Check if the user has a social account
+    social_account = SocialAccount.objects.filter(user=user).first()
+
+    # Generate or retrieve the refresh token
+    refresh = RefreshToken.for_user(user)
+    access_token = str(refresh.access_token)
+
+    # Check if the access token is still valid
+    token_is_valid = refresh.valid()
+
+    # Build the response data
+    response_data = {
+        "user_id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "access_token": access_token,
+        "token_is_valid": token_is_valid,
+    }
+
+    if social_account:
+        login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
+        # Add more user details specific to social accounts if needed
+
+    return Response(response_data)
 
 
 
