@@ -1,9 +1,5 @@
 import { Router } from 'express';
-import {
-  getUser,
-  updateUser,
-  uploadImage,
-} from '../controller/user';
+import { getUser, updateUser, uploadImage } from '../controller/user';
 import { UserMiddleware, UploadsMiddleware } from '../middleware';
 
 const router = Router();

@@ -73,7 +73,6 @@ export const listRooms = async (req: Request, res: Response) => {
   }
 };
 
-
 export const getRoom = async (req: Request, res: Response) => {
   try {
     const { roomName } = req.params;
@@ -100,7 +99,6 @@ export const getRoom = async (req: Request, res: Response) => {
   }
 };
 
-
 export const deleteRoom = async (req: Request, res: Response) => {
   try {
     const { roomName } = req.body;
@@ -117,16 +115,16 @@ export const deleteRoom = async (req: Request, res: Response) => {
     const response = await LivekitService.deleteRoom(roomName);
 
     if (response) {
-    return res.status(StatusCode.NO_CONTENT).json({
-      status: !!ResponseCode.SUCCESS,
-      message: 'Room deleted successful',
-      data: room,
-    });
-  }
-      return res.status(StatusCode.BAD_REQUEST).json({
-        status: !!ResponseCode.FAILURE,
-        message: 'delete room request was not successful',
+      return res.status(StatusCode.NO_CONTENT).json({
+        status: !!ResponseCode.SUCCESS,
+        message: 'Room deleted successful',
+        data: room,
       });
+    }
+    return res.status(StatusCode.BAD_REQUEST).json({
+      status: !!ResponseCode.FAILURE,
+      message: 'delete room request was not successful',
+    });
   } catch (err: GenericAnyType) {
     return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
       status: !!ResponseCode.FAILURE,
@@ -150,7 +148,7 @@ export const listParticipants = async (req: Request, res: Response) => {
 
     const participants = await LivekitService.listParticipants(roomName);
 
-    console.log(participants, 'participants')
+    console.log(participants, 'participants');
 
     if (!participants) {
       return res.status(StatusCode.BAD_REQUEST).json({
@@ -189,8 +187,8 @@ export const getParticipant = async (req: Request, res: Response) => {
 
     if (!participant) {
       return res.status(StatusCode.BAD_REQUEST).json({
-        message: 'participant not found'
-      })
+        message: 'participant not found',
+      });
     }
 
     return res.status(StatusCode.OK).json({
@@ -229,14 +227,10 @@ export const updateParticipant = async (req: Request, res: Response) => {
       });
     }
 
-    const response = await LivekitService.updateParticipant(
-      roomName,
-      userId,
-      {
-        metadata,
-        permissions
-      }
-    );
+    const response = await LivekitService.updateParticipant(roomName, userId, {
+      metadata,
+      permissions,
+    });
 
     if (response) {
       return res.status(StatusCode.OK).json({
@@ -254,12 +248,12 @@ export const updateParticipant = async (req: Request, res: Response) => {
       status: !!ResponseCode.FAILURE,
       message: err.message || 'Server Error',
     });
-  };
+  }
 };
 
 export const removeParticipant = async (req: Request, res: Response) => {
-    try {
-      const { roomName, userId } = req.params;
+  try {
+    const { roomName, userId } = req.params;
 
     const room = await LivekitService.listRooms([roomName]);
 
@@ -279,29 +273,29 @@ export const removeParticipant = async (req: Request, res: Response) => {
       });
     }
 
-      const response = await LivekitService.removeParticipant(roomName, userId);
+    const response = await LivekitService.removeParticipant(roomName, userId);
 
-      if (response) {
-        return res.status(StatusCode.NO_CONTENT).json({
-          status: !!ResponseCode.SUCCESS,
-          message: 'participant remove successful',
-        });
-      }
-
-      return res.status(StatusCode.BAD_REQUEST).json({
-        message: 'participant remove not successful'
-      })
-    } catch (err: GenericAnyType) {
-      return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
-        status: !!ResponseCode.FAILURE,
-        message: err.message || 'Server Error',
+    if (response) {
+      return res.status(StatusCode.NO_CONTENT).json({
+        status: !!ResponseCode.SUCCESS,
+        message: 'participant remove successful',
       });
     }
-  };
-  
+
+    return res.status(StatusCode.BAD_REQUEST).json({
+      message: 'participant remove not successful',
+    });
+  } catch (err: GenericAnyType) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};
+
 export const muteParticipant = async (req: Request, res: Response) => {
-    try {
-      const { roomName, userId, trackSID, isMute } = req.params;
+  try {
+    const { roomName, userId, trackSID, isMute } = req.params;
 
     const room = await LivekitService.listRooms([roomName]);
 
@@ -321,28 +315,28 @@ export const muteParticipant = async (req: Request, res: Response) => {
       });
     }
 
-      const response = await LivekitService.muteParticipant(
-        roomName,
-        userId,
-        trackSID,
-        !!Number(isMute)
-      );
+    const response = await LivekitService.muteParticipant(
+      roomName,
+      userId,
+      trackSID,
+      !!Number(isMute)
+    );
 
-      if (response) {
-        return res.status(StatusCode.NO_CONTENT).json({
-          status: !!ResponseCode.SUCCESS,
-          message: 'participant mute successful',
-        });
-      }
-
-      return res.status(StatusCode.BAD_REQUEST).json({
-        status: !!ResponseCode.FAILURE,
-        message: 'participant mute not successful'
-      })
-    } catch (err: GenericAnyType) {
-      return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
-        status: !!ResponseCode.FAILURE,
-        message: err.message || 'Server Error',
+    if (response) {
+      return res.status(StatusCode.NO_CONTENT).json({
+        status: !!ResponseCode.SUCCESS,
+        message: 'participant mute successful',
       });
     }
-  };
+
+    return res.status(StatusCode.BAD_REQUEST).json({
+      status: !!ResponseCode.FAILURE,
+      message: 'participant mute not successful',
+    });
+  } catch (err: GenericAnyType) {
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};

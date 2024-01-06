@@ -1,10 +1,5 @@
 import { Request, Response } from 'express';
-import {
-  GenericAnyType,
-  ResponseCode,
-  StatusCode,
-  UserQueryType,
-} from '../@types';
+import { GenericAnyType, ResponseCode, StatusCode, UserQueryType } from '../@types';
 import { UserService } from '../service';
 
 export const listUsers = async (req: Request, res: Response) => {
@@ -173,4 +168,3 @@ export async function uploadImage(req: Request, res: Response) {
     });
   }
 }
-

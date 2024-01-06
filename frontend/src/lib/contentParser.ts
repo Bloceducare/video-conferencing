@@ -1,13 +1,13 @@
-import fs from "fs";
-import matter from "gray-matter";
-import { notFound } from "next/navigation";
-import path from "path";
+import fs from 'fs';
+import matter from 'gray-matter';
+import { notFound } from 'next/navigation';
+import path from 'path';
 
-const contentPath = "src/content";
+const contentPath = 'src/content';
 
 // Helper function to read file content
 const readFile = (filePath: string) => {
-  return fs.readFileSync(filePath, "utf-8");
+  return fs.readFileSync(filePath, 'utf-8');
 };
 
 // Helper function to parse frontmatter
