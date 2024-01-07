@@ -26,7 +26,7 @@ const MeetingCard = ({ data }: { data: MeetingCardType }) => {
         <Modal>
           <>
             <button onClick={() => setIsVisible(!isVisible)}>Cancel</button>
-            <Link href={'#'}>
+            <Link href={'/preview'}>
               <div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">JOIN ROOM</div>
             </Link>
           </>

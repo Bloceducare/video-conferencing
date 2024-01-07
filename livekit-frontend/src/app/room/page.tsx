@@ -8,12 +8,33 @@ import {
   RoomOptions,
   VideoPresets,
 } from 'livekit-client';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { DebugMode } from '@/lib/Debug';
 import { decodePassphrase } from '@/lib/client-utils';
 import CustomVideoConference from '@/components/CustomLiveKitComponents/CustomVideoConference';
+import { useTokenStore } from '@/hooks/useAPIStore';
+import useAxios from '@/hooks/useAxios';
 
-const Preview = () => {
+const MeetingRoom = () => {
+  const { setToken } = useTokenStore.getState();
+  const { data, error, isLoading } = useAxios(
+    'https://w3bvc.onrender.com/v1/livekit/token',
+    'post',
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        roomName: 'web3-track',
+        userId: `web3-user-${Math.floor(Math.random() * 1000)}`,
+      },
+    }
+  );
+
+  if (!isLoading) {
+    setToken(data as string);
+  }
+
   const e2eePassphrase =
     typeof window !== 'undefined' && decodePassphrase(window.location.hash.substring(1));
   const worker =
@@ -55,26 +76,26 @@ const Preview = () => {
   return (
     <>
       {/*<PageHeader />*/}
-      <section className="w-screen h-screen bg-body dark:bg-darkmode-body">
-        <LiveKitRoom
-          room={room}
-          token={
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjM0MzE3MTcwMzYsImlzcyI6ImRldmtleSIsIm5hbWUiOiJ1c2VyMSIsIm5iZiI6MTcwMzcxNzAzNiwic3ViIjoidXNlcjEiLCJ2aWRlbyI6eyJyb29tIjoibXktZmlyc3Qtcm9vbSIsInJvb21Kb2luIjp0cnVlfX0.dw5daP5q9MScX67Hh3dtEm08LP0kJTFqsLUv8rxvcDE'
-          }
-          connectOptions={connectOptions}
-          serverUrl={'ws://localhost:7880'}
-          audio={true}
-          video={true}
-        >
-          {/*<VideoConference chatMessageFormatter={formatChatMessageLinks} />*/}
+      {!isLoading && (
+        <section className="w-screen h-screen bg-body dark:bg-darkmode-body">
+          <LiveKitRoom
+            room={room}
+            token={typeof window !== 'undefined' && data && (data as string)}
+            connectOptions={connectOptions}
+            serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_HOST as string}
+            audio={false}
+            video={false}
+          >
+            {/*<VideoConference chatMessageFormatter={formatChatMessageLinks} />*/}
 
-          <CustomVideoConference chatMessageFormatter={formatChatMessageLinks} />
+            <CustomVideoConference chatMessageFormatter={formatChatMessageLinks} />
 
-          <DebugMode logLevel={LogLevel.info} />
-        </LiveKitRoom>
-      </section>
+            <DebugMode logLevel={LogLevel.info} />
+          </LiveKitRoom>
+        </section>
+      )}
     </>
   );
 };
 
-export default Preview;
+export default MeetingRoom;

@@ -16,12 +16,6 @@ const MeetingCards = () => {
   if (!isLoading) {
     setMeetingCardData(data as MeetingCardType[]);
   }
-
-    useEffect(() => {
-      const fetchedMeetingCardData: MeetingCardType[] = [];
-
-      setMeetingCardData(fetchedMeetingCardData);
-    }, []);
   return (
     <>
       <Student />

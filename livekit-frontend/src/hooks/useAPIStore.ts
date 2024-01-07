@@ -6,7 +6,17 @@ interface MeetingCardStore {
   setMeetingCardData: (data: MeetingCardType[]) => void;
 }
 
+interface TokenStore {
+  token: string;
+  setToken: (token: string) => void;
+}
+
 export const useMeetingCardStore = createStore<MeetingCardStore>((set) => ({
   meetingCardData: [],
   setMeetingCardData: (data: MeetingCardType[]) => set({ meetingCardData: data }),
 }));
+
+export const useTokenStore = createStore<TokenStore>((set) => ({
+  token: '',
+  setToken: (token: string) => set({ token }),
+})); 
