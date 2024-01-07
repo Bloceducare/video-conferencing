@@ -20,6 +20,9 @@ const Preview = () => {
 
   function handlePreJoinSubmit(values: LocalUserChoices) {
     setPreJoinChoices(values);
+    console.log(preJoinChoices, ': prejoin choices');
+
+    window.location.href = '/room'
   }
   return (
     <>
