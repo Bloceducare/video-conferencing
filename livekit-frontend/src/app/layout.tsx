@@ -28,6 +28,37 @@ export default function RootLayout({
   const pf = theme.fonts.font_family.primary;
   const sf = theme.fonts.font_family.secondary;
 
+  const renderNavbar = () => {
+    switch (true) {
+      case pathname === '/dashboard':
+        return (
+          <Navbar
+            onOpenSidenav={() => setOpen(!open)}
+            brandText={getActiveRoute(routes, pathname)}
+            secondary={getActiveNavbar(routes, pathname)}
+          />
+        );
+      case pathname.startsWith('/room'):
+        return null;
+      case pathname.startsWith('/preview'):
+        return null;
+      default:
+        return <Header />;
+    }
+  };
+
+  const renderFooter = () => {
+    switch (true) {
+      case pathname !== '/':
+        return null;
+      case pathname.startsWith('/room'):
+        return null;
+      case pathname.startsWith('/preview'):
+        return null;
+      default:
+        return <Footer />;
+    }
+  };
 
   return (
     <html suppressHydrationWarning={true} lang="en">
@@ -71,16 +102,9 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
-
-            {
-                pathname === '/dashboard' ? <Navbar
-                    onOpenSidenav={() => setOpen(!open)}
-                    brandText={getActiveRoute(routes, pathname)}
-                    secondary={getActiveNavbar(routes, pathname)}
-                /> : pathname.startsWith('/room')? null : <Header />
-            }
+          {renderNavbar()}
           <main>{children}</main>
-            {pathname !== '/dashboard' || !pathname.startsWith('/room') && <Footer />}
+            {renderFooter()}
         </Providers>
       </body>
     </html>

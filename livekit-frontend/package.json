@@ -12,6 +12,7 @@
     "@livekit/components-react": "^1.5.1",
     "@livekit/components-styles": "^1.0.8",
     "@tailwindcss/forms": "^0.5.7",
+    "axios": "^1.6.5",
     "gray-matter": "^4.0.3",
     "livekit-client": "^1.15.5",
     "marked": "^11.1.0",

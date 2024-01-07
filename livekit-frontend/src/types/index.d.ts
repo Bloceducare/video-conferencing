@@ -1,10 +1,18 @@
 export type MeetingCardType = {
-  title: string;
-  cohort: string;
-  room: string;
-  description: string;
-  image: string;
-  link: string;
+  sid: string;
+  name: string;
+  emptyTimeout: number;
+  maxParticipants: number;
+  creationTime: number;
+  turnPassword: string;
+  enabledCodecs: {
+    mime: string;
+    fmtpLine: string;
+  }[];
+  metadata: string;
+  numParticipants: number;
+  numPublishers: number;
+  activeRecording: boolean;
 };
 
 export type RegularPage = {

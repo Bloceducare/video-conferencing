@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import ImageFallback from '@/layouts/helpers/ImageFallback';
 import { getListPage } from '@/lib/contentParser';
-import { Button } from '@/types';
+import { Button, MeetingCardType } from '@/types';
 import HomepageButton from '@/helpers/HomepageButton';
 import HomepageImg from 'public/unsplash_4xe-yVFJCvw.png';
 
