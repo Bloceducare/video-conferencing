@@ -162,7 +162,7 @@ export default function CustomControlBar({
         </ChatToggle>
       )}
       {visibleControls.leave && (
-        <DisconnectButton onClick={() => window.location.href = '/'}>
+        <DisconnectButton onClick={() => window.location.href = '/dashboard'}>
           {showIcon && <LeaveIcon />}
           {showText && 'Leave'}
         </DisconnectButton>
