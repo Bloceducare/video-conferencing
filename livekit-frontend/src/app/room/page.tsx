@@ -12,11 +12,13 @@ import { useEffect, useMemo } from 'react';
 import { DebugMode } from '@/lib/Debug';
 import { decodePassphrase } from '@/lib/client-utils';
 import CustomVideoConference from '@/components/CustomLiveKitComponents/CustomVideoConference';
-import { useTokenStore } from '@/hooks/useAPIStore';
+import { useTokenStore, useCreateRoomStore } from '@/hooks/useAPIStore';
 import useAxios from '@/hooks/useAxios';
 
 const MeetingRoom = () => {
   const { setToken } = useTokenStore.getState();
+  const { createRoomData } = useCreateRoomStore.getState();
+
   const { data, error, isLoading } = useAxios(
     'https://w3bvc.onrender.com/v1/livekit/token',
     'post',
@@ -25,13 +27,15 @@ const MeetingRoom = () => {
         'Content-Type': 'application/json',
       },
       data: {
-        roomName: 'web3-track',
+        roomName: createRoomData.roomName || localStorage.getItem('room'),
         userId: `web3-user-${Math.floor(Math.random() * 1000)}`,
       },
     }
   );
 
   if (!isLoading) {
+    console.log(createRoomData, ': create room data from room');
+    console.log(data, ': this is the token');
     setToken(data as string);
   }
 

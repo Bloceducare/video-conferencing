@@ -1,17 +1,28 @@
 import { plainify } from '@/lib/textConverter';
 import { MeetingCardType } from '@/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Modal from './Modal';
+import { useCreateRoomStore } from '@/hooks/useAPIStore';
 
 const MeetingCard = ({ data }: { data: MeetingCardType }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const { setCreateRoomData, createRoomData } = useCreateRoomStore.getState();
+
+  const handleClick = () => {
+    setCreateRoomData({ duration: 100, roomName: data.name });
+    setIsVisible(!isVisible);
+  };
+
+  useEffect(() => {
+    console.log(createRoomData, ': create room data');
+  }, [createRoomData]);
 
   return (
     <>
       <div className="rounded  p-8 text-center ">
         <h4 className="mb-3">
-          <button onClick={() => setIsVisible(!isVisible)}>{`Test Meeting ${
+          <button onClick={handleClick}>{`Test Meeting ${
             Math.floor(Math.random() * 1)
           }`}</button>
           {/* <Link href={'#'}>{title}</Link> */}

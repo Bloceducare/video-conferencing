@@ -5,6 +5,7 @@ import {
 import dynamic from 'next/dynamic';
 import * as React from 'react';
 import PageHeader from '@/layouts/partials/PageHeader';
+import { useCreateRoomStore } from '@/hooks/useAPIStore';
 
 const PreJoinNoSSR = dynamic(
   async () => {
@@ -17,6 +18,9 @@ const Preview = () => {
   const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
     undefined
   );
+  const { createRoomData } = useCreateRoomStore.getState();
+  
+  localStorage.setItem('room', createRoomData.roomName);
 
   function handlePreJoinSubmit(values: LocalUserChoices) {
     setPreJoinChoices(values);
