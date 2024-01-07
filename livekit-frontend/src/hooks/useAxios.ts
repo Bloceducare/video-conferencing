@@ -7,7 +7,7 @@ const useAxios = (url: string, method = 'get', options = {}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState<boolean>();
 
-    const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await axios(url, {
         method,

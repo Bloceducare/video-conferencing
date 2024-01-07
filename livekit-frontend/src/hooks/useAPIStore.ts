@@ -1,5 +1,5 @@
 import { MeetingCardType, CreateRoomType } from '@/types';
-import { createStore} from 'zustand';
+import { createStore } from 'zustand';
 
 interface MeetingCardStore {
   meetingCardData: MeetingCardType[];
