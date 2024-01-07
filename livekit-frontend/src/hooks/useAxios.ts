@@ -5,6 +5,7 @@ const useAxios = (url: string, method = 'get', options = {}) => {
   const [data, setData] = useState<any[] | any>();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [status, setStatus] = useState<boolean>();
 
     const fetchData = useCallback(async () => {
     try {
@@ -14,6 +15,7 @@ const useAxios = (url: string, method = 'get', options = {}) => {
       });
       console.log(response.data.data, ': axios called');
       setData(response.data.data);
+      setStatus(response.data.status);
     } catch (error: any) {
       setError(error);
     } finally {
@@ -25,7 +27,7 @@ const useAxios = (url: string, method = 'get', options = {}) => {
     fetchData();
   }, []);
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, status };
 };
 
 export default useAxios;

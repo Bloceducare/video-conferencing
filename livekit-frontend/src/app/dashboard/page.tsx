@@ -3,7 +3,6 @@ import { useMeetingCardStore } from '@/hooks/useAPIStore';
 import useAxios from '@/hooks/useAxios';
 import { MeetingCardType } from '@/types';
 import Student from './student';
-import { useEffect } from 'react';
 
 const MeetingCards = () => {
   const { setMeetingCardData } = useMeetingCardStore.getState();

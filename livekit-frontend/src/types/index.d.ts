@@ -15,6 +15,11 @@ export type MeetingCardType = {
   activeRecording: boolean;
 };
 
+export type CreateRoomType = {
+  roomName: string;
+  duration: number;
+}
+
 export type RegularPage = {
   frontmatter: {
     title: string;
