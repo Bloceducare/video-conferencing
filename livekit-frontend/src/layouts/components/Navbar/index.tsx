@@ -1,9 +1,6 @@
 import React from 'react';
-import Dropdown from '@/layouts/components/Dropdown';
 import Logo from '@/layouts/components/Logo';
-import { FiAlignJustify } from 'react-icons/fi';
 import { RiMoonFill, RiSunFill } from 'react-icons/ri';
-import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 const Navbar = (props: {
@@ -12,7 +9,6 @@ const Navbar = (props: {
   secondary?: boolean | string;
   [x: string]: any;
 }) => {
-  const { onOpenSidenav, brandText, mini, hovered } = props;
   const [darkmode, setDarkmode] = React.useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
 

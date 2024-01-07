@@ -1,15 +1,12 @@
 'use client';
 
 import Logo from '@/layouts/components/Logo';
-import web3Logo from 'public/Web3bridgeMeet.svg';
 import ThemeSwitcher from '@/layouts/components/ThemeSwitcher';
 import config from '@/config/config.json';
 import menu from '@/config/menu.json';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { IoSearch } from 'react-icons/io5/index.js';
-import { Button } from '@/types';
 import HomepageButton from '@/helpers/HomepageButton';
 
 //  child navigation link interface
