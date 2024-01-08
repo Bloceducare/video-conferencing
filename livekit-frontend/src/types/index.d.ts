@@ -18,7 +18,7 @@ export type MeetingCardType = {
 export type CreateRoomType = {
   roomName: string;
   duration: number;
-}
+};
 
 export type RegularPage = {
   frontmatter: {
