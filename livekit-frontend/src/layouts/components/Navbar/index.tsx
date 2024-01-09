@@ -16,7 +16,7 @@ const Navbar = (props: {
     setDarkmode(document.body.classList.contains('dark'));
   }, [darkmode]);
   return (
-    <div className="navbar dark:bg-base-100 bg-white">
+    <div className="navbar dark:bg-black bg-white">
       <div className="flex-1">
         <Logo />
       </div>

@@ -44,7 +44,7 @@ const Students = () => {
   };
 
   return (
-    <>
+    <div className="h-screen dark:bg-black bg-white">
       <PageHeader />
       <section>
         <div
@@ -55,7 +55,7 @@ const Students = () => {
         </div>
         <h3 className="flex justify-center text-center mt-4 ">Meeting Rooms</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-16 px-14 mx-4 mt-10 ">
-          {!!meetingCardData.length &&
+          {!!meetingCardData &&
             meetingCardData?.map((card: MeetingCardType, index: number) => (
               <div key={index}>
                 <MeetingCard data={card} />
@@ -65,9 +65,9 @@ const Students = () => {
         {isLoading && (
           <div className="text-center px-4 pb-4 pt-5 sm:p-6 sm:pb-4 text-white">LOADING...</div>
         )}
-        {!meetingCardData.length && !isLoading && (
+        {!meetingCardData && !isLoading && (
           <div className="text-center px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-            <p>No Meeting Yet</p>
+            <p className="text-5xl mb-9">No Meeting Yet</p>
             <button
               onClick={() => setIsVisible(!isVisible)}
               className="btn text-white hover:text-black bg-black  hover:bg-white border-solid border-white "
@@ -86,7 +86,7 @@ const Students = () => {
           </Modal>
         )}
       </section>
-    </>
+    </div>
   );
 };
 
