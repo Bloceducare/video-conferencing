@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import config from "@/config/config.json";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import config from '@/config/config.json';
+import { useTheme } from 'next-themes';
+import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-const Logo = ({ src }: { src?: string }) => {
+const Logo = ({ src }: { src?: StaticImageData }) => {
   // destructuring items from config object
   const {
     logo,
@@ -29,25 +29,13 @@ const Logo = ({ src }: { src?: string }) => {
   useEffect(() => setMounted(true), []);
 
   const resolvedLogo =
-    mounted && (theme === "dark" || resolvedTheme === "dark")
-      ? logo_darkmode
-      : logo;
+    mounted && (theme === 'dark' || resolvedTheme === 'dark') ? logo_darkmode : logo;
   const logoPath = src ? src : resolvedLogo;
 
   return (
     <Link href="/" className="navbar-brand inline-block">
       {logoPath ? (
-        <Image
-          width={logo_width.replace("px", "") * 2}
-          height={logo_height.replace("px", "") * 2}
-          src={logoPath}
-          alt={title}
-          priority
-          style={{
-            height: logo_height.replace("px", "") + "px",
-            width: logo_width.replace("px", "") + "px",
-          }}
-        />
+        <Image width={40} height={8} src={logoPath} alt={title} priority />
       ) : logo_text ? (
         logo_text
       ) : (

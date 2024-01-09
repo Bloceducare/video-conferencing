@@ -1,5 +1,6 @@
 'use client';
 
+import logo from '../../../public/logo.png';
 import Logo from '@/layouts/components/Logo';
 import ThemeSwitcher from '@/layouts/components/ThemeSwitcher';
 import config from '@/config/config.json';
@@ -42,7 +43,7 @@ const Header = () => {
         {/* logo */}
 
         {/* <div className="order-0"> */}
-        <Logo />
+        <Logo src={logo} />
         {/* </div> */}
         {/* /navbar toggler */}
 
