@@ -15,22 +15,20 @@ import { LivekitMiddleware, UserMiddleware } from '../middleware';
 
 const router = Router();
 const { inspectGetLivekitToken, inspectCreateRoom, inspectUpdateParticipant } = LivekitMiddleware;
-const { inspectUser } = UserMiddleware;
 
-router.post('/token', inspectUser, inspectGetLivekitToken, getLiveKitAccessToken);
-router.post('/room', inspectUser, inspectCreateRoom, createRoom);
-router.get('/room', inspectUser, listRooms);
-router.get('/room/:roomName', inspectUser, getRoom);
-router.delete('/room/:roomName', inspectUser, deleteRoom);
-router.get('/participant/:roomName', inspectUser, listParticipants);
-router.get('/participant/:roomName/:userId', inspectUser, getParticipant);
-router.patch('/participant/:roomName/:userId/:trackSID/:isMute', inspectUser, muteParticipant);
+router.post('/token', inspectGetLivekitToken, getLiveKitAccessToken);
+router.post('/room', inspectCreateRoom, createRoom);
+router.get('/room', listRooms);
+router.get('/room/:roomName', getRoom);
+router.delete('/room/:roomName', deleteRoom);
+router.get('/participant/:roomName', listParticipants);
+router.get('/participant/:roomName/:userId', getParticipant);
+router.patch('/participant/:roomName/:userId/:trackSID/:isMute', muteParticipant);
 router.put(
   '/participant/:roomName/:userId',
-  inspectUser,
   inspectUpdateParticipant,
   updateParticipant
 );
-router.patch('/participant/:roomName/:userId', inspectUser, removeParticipant);
+router.patch('/participant/:roomName/:userId', removeParticipant);
 
 export default router;

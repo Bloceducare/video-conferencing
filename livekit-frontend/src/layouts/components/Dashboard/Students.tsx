@@ -65,7 +65,7 @@ const Students = () => {
         {isLoading && (
           <div className="text-center px-4 pb-4 pt-5 sm:p-6 sm:pb-4 text-white">LOADING...</div>
         )}
-        {!meetingCardData && !isLoading && (
+        {(!meetingCardData?.length || !meetingCardData) && !isLoading && (
           <div className="text-center px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <p className="text-5xl mb-9">No Meeting Yet</p>
             <button

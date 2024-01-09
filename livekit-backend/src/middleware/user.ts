@@ -22,9 +22,11 @@ const UserMiddleware = {
       const response = await axios.get('https://web3bridgeauth.onrender.com/', {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
+      console.log(response.data, ': response data')
       res.locals.user = response.data;
       next();
     } catch (error: any) {
+      console.log(error)
       return res.status(error.statusCode || StatusCode.BAD_REQUEST).json({
         status: !!ResponseCode.FAILURE,
         message: error,
