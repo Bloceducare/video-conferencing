@@ -27,15 +27,13 @@ const MeetingRoom = () => {
         'Content-Type': 'application/json',
       },
       data: {
-        roomName: createRoomData.roomName || localStorage.getItem('room'),
+        roomName: createRoomData.roomName || typeof window !== 'undefined' && localStorage.getItem('room'),
         userId: `web3-user-${Math.floor(Math.random() * 1000)}`,
       },
     }
   );
 
   if (!isLoading) {
-    console.log(createRoomData, ': create room data from room');
-    console.log(data, ': this is the token');
     setToken(data as string);
   }
 

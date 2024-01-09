@@ -18,7 +18,7 @@ const Preview = () => {
   );
   const { createRoomData } = useCreateRoomStore.getState();
   
-  localStorage.setItem('room', createRoomData.roomName);
+  typeof window !== 'undefined' && localStorage.setItem('room', createRoomData.roomName);
 
   function handlePreJoinSubmit(values: LocalUserChoices) {
     setPreJoinChoices(values);
