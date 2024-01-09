@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import Logo from "@/layouts/components/Logo";
-import Social from "@/layouts/components/Social";
-import menu from "@/config/menu.json";
-import social from "@/config/social.json";
-import Link from "next/link";
+import logo from '../../../public/logo.png';
+import Logo from '@/layouts/components/Logo';
+import Social from '@/layouts/components/Social';
+import menu from '@/config/menu.json';
+import social from '@/config/social.json';
+import Link from 'next/link';
 
 const Footer = () => {
-
   return (
     <footer className="bg-theme-light dark:bg-darkmode-theme-light">
       <div className="container">
         <div className="row items-center py-10">
           <div className="mb-8 text-center lg:col-3 lg:mb-0 lg:text-left">
-            <Logo />
+            <Logo src={logo} />
           </div>
           <div className="mb-8 text-center lg:col-6 lg:mb-0">
             <ul>
