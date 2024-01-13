@@ -1,5 +1,7 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import './signin.module.css';
 
 const SignIn = () => {
@@ -12,47 +14,58 @@ const SignIn = () => {
   const activateButton = (event) => {
     // Add any button activation logic here
   };
-
-  const handleSubmit = (event) => {
+  const router = useRouter();
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const username = document.getElementById('Username').value;
     const password = document.getElementById('password').value;
 
-    const formData = {
-      username: username,
-      password: password,
-    };
-
-    fetch('/accounts/signin/', {
+    // const formData = {
+    //   username: username,
+    //   password: password,
+    // };
+    const formData = new FormData(event.target);
+    const res = await fetch('/api/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Handle successful response
-        alert('login success');
-        window.location.href = ''; // Replace with the desired URL
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('There was a problem with the fetch operation:', error);
-      });
+      body: JSON.stringify({ username, password }),
+    });
+    const { success } = await res.json();
+    if (success) {
+      router.push('/protected');
+      router.refresh();
+    } else {
+      alert('Login failed');
+    }
+
+    // fetch('/accounts/signin/', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error('Network response was not ok');
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     // Handle successful response
+    //     alert('login success');
+    //     window.location.href = ''; // Replace with the desired URL
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     // Handle errors
+    //     console.error('There was a problem with the fetch operation:', error);
+    //   });
   };
 
   return (
     <div className="all">
-
-      <form method="post" id="signin-form" onSubmit={handleSubmit} className='form'>
+      <form method="post" id="signin-form" onSubmit={handleSubmit} className="form">
         <div className="cent">
           <p>Web3bridge Meet</p>
           <p>
@@ -60,16 +73,20 @@ const SignIn = () => {
           </p>
         </div>
 
-        <label className='label' htmlFor="Username">Username</label>
-        <input className='input' type="text" id="Username" name="Username" required />
+        <label className="label" htmlFor="Username">
+          Username
+        </label>
+        <input className="input" type="text" id="Username" name="Username" required />
 
-        <label className='label' htmlFor="password">password:</label>
-        <input className='input' type="password" id="password" name="password" required />
+        <label className="label" htmlFor="password">
+          password:
+        </label>
+        <input className="input" type="password" id="password" name="password" required />
 
         <div className="additional-options">
           <label className="checkbox-container label">
             Remember this device
-            <input className='' type="checkbox" name="remember-me" />
+            <input className="" type="checkbox" name="remember-me" />
             <span className="checkmark"></span>
           </label>
           <a href="/accounts/reset_password/">Forgot Password?</a>
@@ -86,10 +103,7 @@ const SignIn = () => {
         </div>
 
         <a href="/github_login/" className="github-button" type="submit">
-          <img
-            src="/githublogo.png"
-            alt="GitHub Logo"
-          />
+          <img src="/githublogo.png" alt="GitHub Logo" />
           GitHub
         </a>
       </form>
