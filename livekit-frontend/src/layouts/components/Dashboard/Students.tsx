@@ -7,6 +7,7 @@ import { MeetingCardType } from '@/types';
 import MeetingForm from '@/components/FormMeeting';
 import Modal from '@/components/Modal';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Students = () => {
   const { meetingCardData } = useMeetingCardStore.getState();
@@ -30,10 +31,10 @@ const Students = () => {
 
       if (response.data.status) {
         console.log(response.data);
-        alert('Meeting Created Successfully');
+        toast('Meeting Created Successfully');
       } else {
         console.error('Error creating room:', response.data);
-        alert('Error creating room: ' + response.data.message);
+        toast('Error creating room: ' + response.data.message);
       }
     } catch (error) {
       console.error('Error creating room:', error);
