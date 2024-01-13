@@ -7,30 +7,27 @@ import { useCreateRoomStore } from '@/hooks/useAPIStore';
 
 const MeetingCard = ({ data }: { data: MeetingCardType }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { setCreateRoomData, createRoomData } = useCreateRoomStore.getState();
+  const { setCreateRoomData } = useCreateRoomStore.getState();
 
   const handleClick = () => {
     setCreateRoomData({ duration: 100, roomName: data.name });
     setIsVisible(!isVisible);
   };
 
-  useEffect(() => {
-    console.log(createRoomData, ': create room data');
-  }, [createRoomData]);
-
   return (
     <>
       <div className="rounded  p-8 text-center ">
         <h4 className="mb-3">
-          <button onClick={handleClick}>{`Test Meeting ${
-            Math.floor(Math.random() * 1)
-          }`}</button>
-          {/* <Link href={'#'}>{title}</Link> */}
+          <b>{data.name}</b>
         </h4>
 
         <div className="space-y-4">
-          <p>{data.name}</p>
-          <p className="mb-4">{plainify('For Test')}</p>
+          <button
+            onClick={handleClick}
+            className="btn text-white hover:text-black bg-black  hover:bg-white border-solid border-white "
+          >
+            {`Join ${data.name} Room`}
+          </button>
         </div>
       </div>
       {isVisible && (

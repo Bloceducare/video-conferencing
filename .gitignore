@@ -111,3 +111,44 @@ config.txt
 package-lock.json
 
 .idea
+
+# Ignore virtual environment
+*env/
+
+# Ignore .env files
+*.env
+
+# Ignore compiled Python files
+*__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore database files
+*.sqlite3
+
+# Ignore logs and temporary files
+logs/
+*.log
+*.pot
+*.pyc
+
+# Ignore migration files
+*/migrations/
+
+# Ignore IDE and editor-specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+
+
+# Ignore Django specific files
+*.pyc
+*.pyo
+db.sqlite3
+.DS_Store
