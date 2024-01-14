@@ -12,11 +12,11 @@ const production = env.NODE_ENV === 'LIVE';
 
 const app = express();
 
-app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
 
 app.use(morgan('dev'));
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 

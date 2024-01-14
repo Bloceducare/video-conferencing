@@ -42,6 +42,9 @@ export const createRoom = async (req: Request, res: Response) => {
       emptyTimeout,
       maxParticipants,
     });
+
+    // store room details to db
+
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
       message: 'Room created successfully',
@@ -58,7 +61,12 @@ export const createRoom = async (req: Request, res: Response) => {
 
 export const listRooms = async (req: Request, res: Response) => {
   try {
-    const response = await LivekitService.listRooms();
+    const response = await LivekitService.listRooms(); // we do not care about htis anymore
+
+    // fetch created rooms from our db
+
+    // if the room exists recreate it on livekit.
+    
     return res.status(StatusCode.OK).json({
       status: !!ResponseCode.SUCCESS,
       message: 'List of rooms',
