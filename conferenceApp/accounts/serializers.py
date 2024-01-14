@@ -25,6 +25,10 @@ class SigninSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
+    class Meta:
+        model = get_user_model()
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()

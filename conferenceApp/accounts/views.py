@@ -21,10 +21,40 @@ from rest_framework import permissions
 
 class SignupView(generics.CreateAPIView):
     """Register user with email, password, and other details"""
-    serializer_class = CustomUserSerializer 
+    serializer_class = CustomUserSerializer
 
     def create(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        email = request.data.get('email')
+        name = request.data.get('name')
+        class_stack = request.data.get('class_stack')
+        cohort = request.data.get('cohort')
+
+        # Validate the required fields
+        if not username:
+            return Response({'error': 'Username is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not email:
+            return Response({'error': 'Email is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not name:
+            return Response({'error': 'Name is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not class_stack:
+            return Response({'error': 'Class/Stack is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not cohort:
+            return Response({'error': 'Cohort is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if username or email already exists
+        if get_user_model().objects.filter(username=username).exists():
+            return Response({'error': 'Username already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if get_user_model().objects.filter(email=email).exists():
+            return Response({'error': 'Email already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+
         response = super().create(request, *args, **kwargs)
+
         if response.status_code == status.HTTP_201_CREATED:
             return Response({
                 'message': 'User registered successfully.',
@@ -33,38 +63,51 @@ class SignupView(generics.CreateAPIView):
         else:
             return response
 
-class SigninView(APIView):
+class SigninView(generics.CreateAPIView):
     """Login a user with username and password"""
-    serializer_class = SigninSerializer
 
-    @csrf_exempt
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-        username = serializer.validated_data['username']
-        password = serializer.validated_data['password']
+        # Validate the required fields
+        if not username:
+            return Response({'error': 'Username is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not password:
+            return Response({'error': 'Password is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Authenticate using username and password
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            refresh = RefreshToken.for_user(user)
-            access_token = str(refresh.access_token)
+        # Validate incorrect username
+        if user is None:
+            return Response({'error': 'Invalid username.'}, status=status.HTTP_401_UNAUTHORIZED)
 
-            return Response({
-                'access_token': access_token,
-                'user': {
-                    'id': user.id,
-                    'username': user.username,
-                    'is_staff': user.is_staff,
-                },
-                'message': 'Authentication successful.'
-            }, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
-        
+        # Validate incorrect password
+        if not user.check_password(password):
+            return Response({'error': 'Invalid password.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        # Authentication successful
+        login(request, user)
+
+        # Generate or retrieve the refresh token
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        # Return user details and token
+        user_data = {
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'name': user.name,
+                'email': user.email,
+                'role': user.role,
+            },
+            'access_token': access_token,
+            'message': 'Authentication successful.',
+        }
+        return Response(user_data, status=status.HTTP_200_OK)
 
 class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
     """Get user details, update, or delete a user"""
