@@ -6,8 +6,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 
+
 const SignIn: React.FC = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -28,7 +30,7 @@ const SignIn: React.FC = () => {
       toast.error('Please fill in all the details.');
       return;
     }
-
+    setLoading(true);
     const formData = {
       username: username,
       password: password,
@@ -59,6 +61,9 @@ const SignIn: React.FC = () => {
       // Handle errors
       console.error('There was a problem with the fetch operation:', error);
       toast.error('An error occurred. Please try again.');
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -124,10 +129,13 @@ const SignIn: React.FC = () => {
         </div>
 
         <button
-          className="bg-[#131313] w-1/2 m-auto flex items-center text-center text-[#FEFEFE] rounded-[1em] py-2 hover:bg-black justify-center"
+          className={`bg-[#131313] w-1/2 m-auto flex items-center text-center text-[#FEFEFE] rounded-[1em] py-2 hover:bg-black justify-center ${
+            loading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
           type="submit"
+          disabled={loading}
         >
-          Log in
+          {loading ? 'Loading...' : 'Log in'}
         </button>
       </form>
 
