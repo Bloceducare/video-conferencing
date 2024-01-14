@@ -202,7 +202,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-LOGIN_REDIRECT_URL = "https://vc-w3bridge.vercel.app/"
+LOGIN_REDIRECT_URL = "https://vc-w3bridge.vercel.app/dashboard"
 
 
 SOCIAL_AUTH_PIPELINE = (
