@@ -135,6 +135,7 @@ logs/
 
 # Ignore migration files
 */migrations/
+*migrations/
 
 # Ignore IDE and editor-specific files
 .vscode/
