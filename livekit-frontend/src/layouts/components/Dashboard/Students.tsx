@@ -8,6 +8,7 @@ import MeetingForm from '@/components/FormMeeting';
 import Modal from '@/components/Modal';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { RxCross2 } from 'react-icons/rx';
 
 const Students = () => {
   const { meetingCardData } = useMeetingCardStore.getState();
@@ -81,7 +82,9 @@ const Students = () => {
         {isVisible && (
           <Modal>
             <>
-              <button onClick={() => setIsVisible(!isVisible)}>Cancel</button>
+              <button className="p-3" onClick={() => setIsVisible(!isVisible)}>
+                <RxCross2 size={24} />
+              </button>
               <MeetingForm onSubmit={handleSubmit} />
             </>
           </Modal>
