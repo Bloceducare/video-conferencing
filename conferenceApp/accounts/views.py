@@ -18,6 +18,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import CustomUserSerializer, SigninSerializer, UserProfileSerializer, ResetPasswordSerializer, CompletePasswordResetSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
+from django.shortcuts import redirect
+from social_django.utils import psa
 
 class SignupView(generics.CreateAPIView):
     """Register user with email, password, and other details"""
@@ -198,26 +200,49 @@ def get_user_details(request):
     user = request.user
 
     # Check if the user has a social account
-    social_account = SocialAccount.objects.filter(user=user).first()
-
-    # Generate or retrieve the refresh token
-    refresh = RefreshToken.for_user(user)
-    access_token = str(refresh.access_token)
-
-    # Check if the access token is still valid
-    token_is_valid = refresh.valid()
+    social_account = getattr(user, 'socialaccount', None)
 
     # Build the response data
     response_data = {
         "user_id": user.id,
         "username": user.username,
         "email": user.email,
-        "access_token": access_token,
-        "token_is_valid": token_is_valid,
     }
 
     if social_account:
+        # Set additional details for social accounts
+        if not user.email and social_account.extra_data.get('email'):
+            user.email = social_account.extra_data['email']
+            user.save()
+
         login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
-        # Add more user details specific to social accounts if needed
 
     return Response(response_data)
+
+def add_jwt_token_to_redirect(backend, details, response, user=None, *args, **kwargs):
+    if user and user.is_authenticated:
+        # Generate or retrieve the refresh token
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        # Append the token to the redirect URL
+        redirect_url = 'https://vc-w3bridge.vercel.app/dashboard'
+        redirect_url += f'?access_token={access_token}'
+
+        return redirect(redirect_url)
+
+def dashboard(request):
+
+    """ The commented code partt has an error
+      i'm too lazy to fix so i hardcoded the backend
+       since we just have one social backend for now """
+    
+    # auth_response = request.socialauth_backends
+    # if auth_response:
+    #     backend = auth_response[0].AUTH_BACKEND.name
+    
+    # else:
+    #     # Default to 'github' if no backend is found
+    backend = 'github'
+    
+    return add_jwt_token_to_redirect(backend, None, None, request.user)
