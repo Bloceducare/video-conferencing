@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '@/layouts/components/Logo';
 import { RiMoonFill, RiSunFill } from 'react-icons/ri';
 import { useTheme } from 'next-themes';
+
 
 const Navbar = (props: {
   onOpenSidenav: () => void;
@@ -11,19 +12,28 @@ const Navbar = (props: {
 }) => {
   const [darkmode, setDarkmode] = React.useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const userString: string | null = localStorage.getItem('user');
+  
+  const [userString, setUserString] = useState<string | null>(null);
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user !== null) {
+      setUserString(user);
+    }
+  }, []);
+
   const user: {
-      id: number | null;
-      username: string | null;
-      name: string | null;
-      email: string | null;
-      role: string | null;
+    id: number | null;
+    username: string | null;
+    name: string | null;
+    email: string | null;
+    role: string | null;
   } = userString ? JSON.parse(userString) : {
-      id: null,
-      username: null,
-      name: null,
-      email: null,
-      role: null,
+    id: null,
+    username: null,
+    name: null,
+    email: null,
+    role: null,
   };
   
   React.useEffect(() => {
