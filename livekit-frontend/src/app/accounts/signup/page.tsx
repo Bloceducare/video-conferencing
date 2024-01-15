@@ -34,7 +34,7 @@ const SignUp: React.FC = () => {
       username: username,
       password: password,
       name: name,
-      stack: stack,
+      class_stack: stack,
       cohort: cohort,
       email: email,
     };
@@ -47,12 +47,13 @@ const SignUp: React.FC = () => {
         },
         body: JSON.stringify(formData),
       });
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        console.log(data)
+        throw new Error(data.error);
       }
 
-      const data = await response.json();
 
       // Save data to session storage
       sessionStorage.setItem('access_token', data.access_token);
@@ -66,12 +67,11 @@ const SignUp: React.FC = () => {
       toast.success('Sign Up success');
       console.log(data);
 
-      // Redirect to another page if needed
-      router.push('/dashboard'); // replace '/dashboard' with your desired route
-    } catch (error) {
+      router.push('/accounts/signin');
+    } catch (error:any) {
       // Handle errors
       console.error('There was a problem with the fetch operation:', error);
-      toast.error('An error occurred. Please try again.');
+      toast.error('error: '+ error.message);
     } finally {
       setLoading(false);
     }
@@ -169,9 +169,16 @@ const SignUp: React.FC = () => {
           required
         >
           <option value="" disabled selected></option>
-          <option value="Cartesi">Cartesi</option>
-          <option value="Web3">Web3</option>
-          <option value="Web2">Web2</option>
+          <option value="i">i</option>
+          <option value="ii">ii</option>
+          <option value="iii">iii</option>
+          <option value="iv">iv</option>
+          <option value="v">i</option>
+          <option value="vi">vi</option>
+          <option value="vii">vii</option>
+          <option value="viii">viii</option>
+          <option value="ix">ix</option>
+          <option value="x">x</option>
         </select>
 
         <label className="label font-bold" htmlFor="email">

@@ -45,11 +45,12 @@ const SignIn: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        console.log(data)
+        throw new Error(data.error);
       }
 
-      const data = await response.json();
       // Handle successful response
       toast.success('Login success');
       sessionStorage.setItem('access_token', data.access_token);
@@ -57,10 +58,10 @@ const SignIn: React.FC = () => {
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('user', JSON.stringify(data.user));
       router.push('/dashboard');
-    } catch (error) {
+    } catch (error:any) {
       // Handle errors
       console.error('There was a problem with the fetch operation:', error);
-      toast.error('An error occurred. Please try again.');
+      toast.error(error.message);
     }
     finally {
       setLoading(false);

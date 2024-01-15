@@ -80,15 +80,13 @@ class SigninView(generics.CreateAPIView):
             return Response({'error': 'Password is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Authenticate using username and password
-        user = authenticate(request, username=username, password=password)
-
-        # Validate incorrect username
         if user is None:
-            return Response({'error': 'Invalid username.'}, status=status.HTTP_401_UNAUTHORIZED)
-
-        # Validate incorrect password
-        if not user.check_password(password):
-            return Response({'error': 'Invalid password.'}, status=status.HTTP_401_UNAUTHORIZED)
+        # Check if the user exists with the given username
+            try:
+                user = User.objects.get(username=username)
+                return Response({'error': 'Invalid password.'}, status=status.HTTP_401_UNAUTHORIZED)
+            except User.DoesNotExist:
+                return Response({'error': 'Invalid username.'}, status=status.HTTP_401_UNAUTHORIZED)
 
         # Authentication successful
         login(request, user)
