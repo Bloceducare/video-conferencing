@@ -16,7 +16,7 @@ import {
 import "@/styles/main.scss";
 import '@livekit/components-styles';
 import '@livekit/components-styles/prefabs';
-
+import { useRouter } from "next/navigation";
 export default function RootLayout({
   children,
 }: {
@@ -27,7 +27,7 @@ export default function RootLayout({
   // import google font css
   const pf = theme.fonts.font_family.primary;
   const sf = theme.fonts.font_family.secondary;
-
+  const router = useRouter()
   const renderNavbar = () => {
     switch (true) {
       case pathname === '/dashboard':
@@ -46,6 +46,19 @@ export default function RootLayout({
         return <Header />;
     }
   };
+
+  //   const authcheck = () => {
+  // //  manage auttth access
+  //     let storedToken = sessionStorage.getItem('access_token');
+  // switch (true) {
+  //   case storedToken = null:
+  //     return router.push('/accounts/signin');
+  //   default:
+  //     return null;      
+  // }
+    
+
+  // }
 
   const renderFooter = () => {
     switch (true) {
@@ -105,6 +118,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
+          {/* {authcheck()} */}
           {renderNavbar()}
           <main>{children}</main>
             {renderFooter()}

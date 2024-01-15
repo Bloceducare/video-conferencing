@@ -77,17 +77,6 @@ const SignUp: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // Optional: Check if user is already logged in (e.g., after a page refresh)
-  //   const storedToken = sessionStorage.getItem('access_token');
-  //   const storedUser = sessionStorage.getItem('user');
-
-  //   if (storedToken && storedUser) {
-  //     // Redirect to another page if needed
-  //     router.push('/dashboard'); // replace '/dashboard' with your desired route
-  //   }
-  // }, []);
-
   return (
     <div className="flex flex-col gap-4 w-1/2 m-auto kodchasan">
       <form
