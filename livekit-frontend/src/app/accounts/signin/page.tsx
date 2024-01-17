@@ -151,7 +151,7 @@ const SignIn: React.FC = () => {
         target="blank"
         className="w-1/3 flex gap-4 border-[#808080] border m-auto rounded-lg py-1 items-center justify-center mt-2"
       >
-        <Image src="/githublogo.png" alt="GitHub__logo" width={30} height={30} />
+        <Image src="/githublogo.svg" alt="GitHub__logo" width={30} height={30} />
         GitHub
       </a>
 

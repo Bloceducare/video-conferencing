@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.http import JsonResponse
+from .models import CustomUser
 from rest_framework.generics import CreateAPIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -67,10 +68,14 @@ class SignupView(generics.CreateAPIView):
 
 class SigninView(generics.CreateAPIView):
     """Login a user with username and password"""
+    serializer_class = SigninSerializer  # Specify your serializer class
 
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        password = request.data.get('password')
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        username = serializer.validated_data.get('username')
+        password = serializer.validated_data.get('password')
 
         # Validate the required fields
         if not username:
@@ -80,13 +85,18 @@ class SigninView(generics.CreateAPIView):
             return Response({'error': 'Password is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Authenticate using username and password
+        user = authenticate(request, username=username, password=password)
+
         if user is None:
-        # Check if the user exists with the given username
+            # Check if the user exists with the given username
             try:
-                user = User.objects.get(username=username)
-                return Response({'error': 'Invalid password.'}, status=status.HTTP_401_UNAUTHORIZED)
-            except User.DoesNotExist:
+                user = CustomUser.objects.get(username=username)
+            except CustomUser.DoesNotExist:
                 return Response({'error': 'Invalid username.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            # Check if the provided password is correct
+            if not user.check_password(password):
+                return Response({'error': 'Invalid password.'}, status=status.HTTP_401_UNAUTHORIZED)
 
         # Authentication successful
         login(request, user)
