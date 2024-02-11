@@ -36,6 +36,17 @@ const livekit = {
     if (error) throw error.details[0].context.label;
     return true;
   },
+
+  async validateRecordMeeting(payload: any) {
+    const schema = joi.object({
+      roomName: joi.string().required().label('valid room name is required'),
+      start: joi.boolean().required().label('valid start query is required'),
+      egressID: joi.string().label('egressID is not valid'),
+    });
+    const { error } = schema.validate(payload);
+    if (error) throw error.details[0].context.label;
+    return true;
+  },
 };
 
 export default livekit;

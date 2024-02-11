@@ -1,6 +1,6 @@
 import { StatusCode, GetLivekitTokenType, CreateRoomType, UpdateParticipantType } from '../@types';
 import { ApiError } from '../utils';
-import { getAccessToken, roomService } from '../config';
+import { getAccessToken, roomService, egressOutput, egressClient } from '../config';
 
 class LivekitService {
   async getLivekitAccessToken(data: GetLivekitTokenType) {
@@ -13,7 +13,35 @@ class LivekitService {
       throw new ApiError(
         'livekit api',
         error as string,
-        'createUser',
+        'getLivekitAccessToken',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async startRecording(roomName: string) {
+    try {
+      return egressClient.startRoomCompositeEgress(roomName, egressOutput, {
+        layout: 'speaker'
+      });
+    } catch (error) {
+      throw new ApiError(
+        'livekit api',
+        error as string,
+        'startRecording',
+        StatusCode.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async stopRecording(egressID: string) {
+    try {
+      return egressClient.stopEgress(egressID);
+    } catch (error) {
+      throw new ApiError(
+        'livekit api',
+        error as string,
+        'stopRecording',
         StatusCode.INTERNAL_SERVER_ERROR
       );
     }

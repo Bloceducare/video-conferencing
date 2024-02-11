@@ -348,3 +348,23 @@ export const muteParticipant = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const recordMeeting = async (req: Request, res: Response) => {
+  try {
+    const { roomName, egressID, start } = req.body;
+
+    const info = start ? await LivekitService.startRecording(roomName) : await LivekitService.stopRecording(egressID);
+
+    return res.status(StatusCode.OK).json({
+      status: !!ResponseCode.SUCCESS,
+      message: start ? 'room recording started' : 'room recording stopped',
+      data: info,
+    });
+  } catch (err: GenericAnyType) {
+    console.log(err, ': err')
+    return res.status(err.status || StatusCode.INTERNAL_SERVER_ERROR).json({
+      status: !!ResponseCode.FAILURE,
+      message: err.message || 'Server Error',
+    });
+  }
+};

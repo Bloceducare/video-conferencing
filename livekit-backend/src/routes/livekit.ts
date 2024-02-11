@@ -10,11 +10,17 @@ import {
   updateParticipant,
   removeParticipant,
   muteParticipant,
+  recordMeeting,
 } from '../controller';
-import { LivekitMiddleware, UserMiddleware } from '../middleware';
+import { LivekitMiddleware } from '../middleware';
 
 const router = Router();
-const { inspectGetLivekitToken, inspectCreateRoom, inspectUpdateParticipant } = LivekitMiddleware;
+const {
+  inspectGetLivekitToken,
+  inspectCreateRoom,
+  inspectUpdateParticipant,
+  inspectRecordMeeting,
+} = LivekitMiddleware;
 
 router.post('/token', inspectGetLivekitToken, getLiveKitAccessToken);
 router.post('/room', inspectCreateRoom, createRoom);
@@ -30,5 +36,6 @@ router.put(
   updateParticipant
 );
 router.patch('/participant/:roomName/:userId', removeParticipant);
+router.patch('/record', inspectRecordMeeting, recordMeeting);
 
 export default router;
