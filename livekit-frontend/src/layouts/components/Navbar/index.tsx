@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '@/layouts/components/Logo';
 import { RiMoonFill, RiSunFill } from 'react-icons/ri';
 import { useTheme } from 'next-themes';
+
 
 const Navbar = (props: {
   onOpenSidenav: () => void;
@@ -11,7 +12,30 @@ const Navbar = (props: {
 }) => {
   const [darkmode, setDarkmode] = React.useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
+  
+  const [userString, setUserString] = useState<string | null>(null);
 
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user !== null) {
+      setUserString(user);
+    }
+  }, []);
+
+  const user: {
+    id: number | null;
+    username: string | null;
+    name: string | null;
+    email: string | null;
+    role: string | null;
+  } = userString ? JSON.parse(userString) : {
+    id: null,
+    username: null,
+    name: null,
+    email: null,
+    role: null,
+  };
+  
   React.useEffect(() => {
     setDarkmode(document.body.classList.contains('dark'));
   }, [darkmode]);
@@ -35,7 +59,7 @@ const Navbar = (props: {
             )}
           </div>
 
-          <div className="dark:text-white hidden lg:inline-block  ">Hey, samson</div>
+          <div className="dark:text-white hidden lg:inline-block  ">{user ? user.username : ''}</div>
           <div tabIndex={0} role="button" className=" avatar hidden pl-6 lg:inline-block ">
             <div className="w-10 rounded-full">
               <img
