@@ -2,16 +2,25 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request } from 'express';
 import { env } from '../config';
 import { UserQueryType } from '../@types/user';
+import bcrypt from 'bcryptjs';
 
-const { NODE_ENV, SECRET } = env;
+const { NODE_ENV, JWT_SECRET } = env;
 
 /**
  * Function for api tools methods
  * @function Toolbox
  */
 const Tools = {
+  encryptPassword(password: string) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  },
+
+  comparePasswords(password: string, hash: string) {
+    return bcrypt.compareSync(password, hash);
+  },
+
   createToken(payload: object, expiresIn: string = '5m'): string {
-    return jwt.sign(payload, SECRET as string, { expiresIn });
+    return jwt.sign(payload, JWT_SECRET as string, { expiresIn });
   },
 
   async checkToken(req: Request) {
@@ -37,7 +46,7 @@ const Tools = {
 
   async verifyToken(token: string): Promise<string | JwtPayload | boolean> {
     try {
-      const response = jwt.verify(token, SECRET as string);
+      const response = jwt.verify(token, JWT_SECRET as string);
       return response;
     } catch (err) {
       return false;
@@ -51,13 +60,9 @@ const Tools = {
   createQuery(query: any, data: UserQueryType): any {
     if (data.role) query['role.' + data.role] = true;
 
-    if (data.firstName) query.firstName = data.firstName;
-
     if (data.email) query.email = data.email;
 
-    if (data.lastName) query.lastName = data.lastName;
-
-    if (data.nickname) query.nickname = data.nickname;
+    if (data.username) query.username = data.username;
 
     return query;
   },
