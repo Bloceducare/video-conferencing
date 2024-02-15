@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import { env } from './config';
 import routes from './routes';
 
-const production = env.NODE_ENV === 'LIVE';
+const production = env.NODE_ENV === 'production';
 
 const app = express();
 
@@ -26,7 +26,6 @@ app.set('trust proxy', 1);
 
 app.use(
   rateLimit({
-    // Limit each IP to 50 requests for every minute.
     windowMs: 1 * 60 * 1000,
     max: 50,
     message: 'Too many requests from this IP, please try again after an hour.',
@@ -40,9 +39,8 @@ if (!production) {
 app.use(express.static('assets'));
 app.use('/v1', routes);
 
-//greet
 app.get('/', (req: Request, res: Response) => {
-  res.send(`${process.env.environment === 'production' ? 'test is up' : 'live is up'}`);
+  res.send(!production ? 'test is up' : 'live is up');
 });
 
 app.all('/*', (req: Request, res: Response, next: NextFunction) => {

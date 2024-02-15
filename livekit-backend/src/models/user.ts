@@ -4,16 +4,15 @@ const { isEmail } = Validator;
 
 const UserSchema = new mongoose.Schema(
   {
-    nickname: {
-      type: String,
-      required: [true, 'Please include nickname'],
-      unique: true,
-    },
-    firstname: {
-      type: String,
-    },
-    lastname: {
-      type: String,
+    username: String,
+    fullname: String,
+    cohortId: String,
+    password: String,
+    token: String,
+    classId: String,
+    signupType: {
+      email: { type: Boolean, default: false },
+      social: { type: Boolean, default: false },
     },
     email: {
       type: String,
@@ -37,6 +36,7 @@ UserSchema.set('toJSON', {
     ret.id = ret._id;
     delete ret._id;
     delete ret.__v;
+    delete ret.token;
   },
 });
 

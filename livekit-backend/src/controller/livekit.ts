@@ -17,7 +17,7 @@ export const getLiveKitAccessToken = async (req: Request, res: Response) => {
 
     const token = await LivekitService.getLivekitAccessToken({
       roomName,
-      userId, // use nickname here. Nickname should be unique.
+      userId, // use username here. Username should be unique.
     });
 
     return res.status(StatusCode.OK).json({

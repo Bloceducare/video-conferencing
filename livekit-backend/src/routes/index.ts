@@ -1,13 +1,15 @@
 import { Router } from 'express';
+import { AuthMiddleware } from '../middleware';
 import user from './user';
 import livekit from './livekit';
-import { UserMiddleware } from '../middleware';
+import auth from './auth';
 
 const router = Router();
 
-const { inspectUser } = UserMiddleware;
+const { authenticate } = AuthMiddleware;
 
-router.use('/user', inspectUser, user);
-router.use('/livekit', livekit);
+router.use('/user', authenticate, user);
+router.use('/livekit', authenticate, livekit);
+router.use('/auth', auth);
 
 export default router;
