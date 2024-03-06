@@ -55,16 +55,11 @@ class SignupView(generics.CreateAPIView):
 
         if get_user_model().objects.filter(email=email).exists():
             return Response({'error': 'Email already exists.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        response = super().create(request, *args, **kwargs)
-
-        if response.status_code == status.HTTP_201_CREATED:
-            return Response({
-                'message': 'User registered successfully.',
-                **response.data
-            }, status=status.HTTP_201_CREATED)
-        else:
-            return response
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({'message': 'User registered successfully.', **serializer.data}, status=status.HTTP_201_CREATED, headers=headers)
 
 class SigninView(generics.CreateAPIView):
     """Login a user with username and password"""

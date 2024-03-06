@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['id', 'username', 'name', 'class_stack', 'cohort', 'email', 'role']
+        fields = ('username', 'email', 'name', 'class_stack', 'cohort', 'password')
         read_only_fields = ['role']  # Make 'role' field read-only by default
 
     def create(self, validated_data):
