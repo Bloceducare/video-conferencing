@@ -1,8 +1,8 @@
 import app from './index';
-import mongoose from 'mongoose';
+import { mongoose } from './models/imports';
 import { logger } from './config';
 import { AddressInfo } from 'net';
-import { seedUsers } from './models/seed';
+import { seedAdmins } from './models/seed';
 
 async function startApp() {
   try {
@@ -10,7 +10,7 @@ async function startApp() {
 
     logger('connect:', 'connected to database');
 
-    seedUsers();
+    seedAdmins();
 
     const server: any = app.listen(process.env.PORT || 5000, () => {
       const { port, address } = server.address() as AddressInfo;
