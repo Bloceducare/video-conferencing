@@ -32,7 +32,7 @@ const MeetingCards = () => {
         window.history.replaceState({}, document.title, window.location.pathname + '?' + urlSearchParams.toString());
 
         // Make a call to getUserDetails endpoint
-        fetch('https://web3bridgeauth.onrender.com/get-user-details/', {
+        fetch('https://web3bridgeauth-y4kb.onrender.com/get-user-details/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -40,7 +40,7 @@ const SignUp: React.FC = () => {
     };
 
     try {
-      const response = await fetch('https://web3bridgeauth.onrender.com/accounts/signup/', {
+      const response = await fetch('https://web3bridgeauth-y4kb.onrender.com/accounts/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -222,7 +222,7 @@ const SignUp: React.FC = () => {
       </div>
 
       <a
-        href="https://web3bridgeauth.onrender.com/accounts/github/login/"
+        href="https://web3bridgeauth-y4kb.onrender.com/accounts/github/login/"
         target="blank"
         className="w-1/3 flex gap-4 border-[#808080] border m-auto rounded-lg py-1 items-center justify-center mt-2"
       >
